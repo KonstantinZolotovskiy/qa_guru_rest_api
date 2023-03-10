@@ -1,9 +1,25 @@
 plugins {
     id 'java'
+    id "io.qameta.allure" version "2.11.2"
+    id "io.freefair.lombok" version "6.5.1"
 }
 
 group 'org.example'
 version '1.0-SNAPSHOT'
+
+allure {
+    report {
+        version.set("2.21.0")
+    }
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 {
+                adapterVersion.set("2.21.0")
+            }
+        }
+    }
+}
 
 repositories {
     mavenCentral()
@@ -12,7 +28,12 @@ repositories {
 dependencies {
     testImplementation(
             'org.junit.jupiter:junit-jupiter:5.9.2',
-            'io.rest-assured:rest-assured:5.3.0'
+            'io.rest-assured:rest-assured:5.3.0',
+            'io.qameta.allure:allure-rest-assured:2.21.0',
+            'com.fasterxml.jackson.core:jackson-core:2.14.0',
+            'com.fasterxml.jackson.core:jackson-databind:2.14.0',
+            'com.github.javafaker:javafaker:1.0.2',
+            "org.assertj:assertj-core:3.24.2",
     )
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
